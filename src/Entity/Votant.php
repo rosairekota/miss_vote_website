@@ -54,6 +54,21 @@ class Votant
      */
     private $motdepass;
 
+      /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $photoName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $category;
+
+       /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $sexe;
+
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="votant")
      */
@@ -172,6 +187,7 @@ class Votant
 
         return $this;
     }
+    
 
     /**
      * @return Collection|Comment[]
@@ -200,6 +216,67 @@ class Votant
                 $comment->setVotant(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of photoName
+     */ 
+    public function getPhotoName()
+    {
+        return $this->photoName;
+    }
+
+    /**
+     * Set the value of photoName
+     *
+     * @return  self
+     */ 
+    public function setPhotoName($photoName)
+    {
+        $this->photoName = $photoName;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of category
+     */ 
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set the value of category
+     *
+     * @return  self
+     */ 
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of sexe
+     */ 
+    public function getSexe()
+    {
+        return $this->sexe;
+    }
+
+    /**
+     * Set the value of sexe
+     *
+     * @return  self
+     */ 
+    public function setSexe($sexe):self
+    {
+        $this->sexe = $sexe;
 
         return $this;
     }

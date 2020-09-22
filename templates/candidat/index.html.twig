@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <form action="{{path('candidat_search')}}" method="get">
+       {{form_start(form)}}
+       <div class="form-group">
+          <label for="title"><h2 class="lead">Rechercher Les Miss par Theme</h2></label>
+          {{form_row(form.title,{'attr':{'id':'title'}})}}
+       </div>
+        <button class="btn btn-primary">Rechercher</button>
+       {{form_end(form)}}
+       
+      </form>
+    </div>
+  </div>
+</div>
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row">
+           {% for theme in themes %}
+              {% for candidat in theme.competition.candidats %}
+              
+            <div class="col-md-3">
+              <div class="card mb-4 shadow-sm">
+                <img class="card-img-top" src="{{ asset('images/static/team-1.jpg')}}" alt="Card image cap">
+               <h2 class="card-title lead">{{candidat.nom}}</h2>
+                   <small class="text-muted">Annee de Naissance: {#{{candidat.dateNaissance}}#}</small> 
+                <div class="card-body">
+                  {# <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> #}
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a class="btn btn-sm btn-outline-secondary" href="{{path('candidat_show',{'id':candidat.id})}}">detail</a>
+                      <a class="btn btn-sm btn-outline-secondary">Voter</a>
+                    </div>
+                 
+                  </div>
+                </div>
+              </div>
+            </div>
+             {% endfor %}
+             
+           {% endfor %}
+          </div>
+        </div>
+          <div class="pagination">
+            {{ knp_pagination_render(themes) }}
+        </div>
+      </div>
+      
+{% endblock body %}

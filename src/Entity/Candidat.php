@@ -68,6 +68,17 @@ class Candidat
      * @ORM\Column(type="string", length=255)
      */
     private $motdepasse;
+    
+       /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $sexe;
+
+       /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateNaissance;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Post::class, mappedBy="candidat")
@@ -78,6 +89,16 @@ class Candidat
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="candidat")
      */
     private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Competition::class, inversedBy="candidats")
+     */
+    private $competition;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
 
     public function __construct()
     {
@@ -288,6 +309,70 @@ class Candidat
                 $comment->setCandidat(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of sexe
+     */ 
+    public function getSexe():?string
+    {
+        return $this->sexe;
+    }
+
+    /**
+     * Set the value of sexe
+     *
+     * @return  self
+     */ 
+    public function setSexe($sexe):self
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of dateNaissance
+     */ 
+    public function getDateNaissance()
+    {
+        return $this->dateNaissance;
+    }
+
+    /**
+     * Set the value of dateNaissance
+     *
+     * @return  self
+     */ 
+    public function setDateNaissance($dateNaissance)
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    public function getCompetition(): ?Competition
+    {
+        return $this->competition;
+    }
+
+    public function setCompetition(?Competition $competition): self
+    {
+        $this->competition = $competition;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

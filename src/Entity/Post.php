@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -40,6 +41,10 @@ class Post
     private $createAt;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $posted;
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
@@ -67,6 +72,7 @@ class Post
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->createAt=new DateTime();
     }
 
     public function getId(): ?int
@@ -197,6 +203,26 @@ class Post
                 $comment->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of posted
+     */ 
+    public function getPosted()
+    {
+        return $this->posted;
+    }
+
+    /**
+     * Set the value of posted
+     *
+     * @return  self
+     */ 
+    public function setPosted($posted)
+    {
+        $this->posted = $posted;
 
         return $this;
     }

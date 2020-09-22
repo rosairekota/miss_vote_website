@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votant{% endblock %}
+
+{% block body %}
+    <h1>Votant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ votant.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ votant.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ votant.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ votant.email }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ votant.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ votant.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Motdepass</th>
+                <td>{{ votant.motdepass }}</td>
+            </tr>
+            <tr>
+                <th>PhotoName</th>
+                <td>{{ votant.photoName }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ votant.category }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ votant.sexe }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('votant_index') }}">back to list</a>
+
+    <a href="{{ path('votant_edit', {'id': votant.id}) }}">edit</a>
+
+    {{ include('votant/_delete_form.html.twig') }}
+{% endblock %}

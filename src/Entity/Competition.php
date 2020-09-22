@@ -49,10 +49,16 @@ class Competition
      */
     private $cotes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Candidat::class, mappedBy="competition")
+     */
+    private $candidats;
+
     public function __construct()
     {
         $this->themes = new ArrayCollection();
         $this->cotes = new ArrayCollection();
+        $this->candidats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,6 +170,37 @@ class Competition
             // set the owning side to null (unless already changed)
             if ($cote->getCompetition() === $this) {
                 $cote->setCompetition(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Candidat[]
+     */
+    public function getCandidats(): Collection
+    {
+        return $this->candidats;
+    }
+
+    public function addCandidat(Candidat $candidat): self
+    {
+        if (!$this->candidats->contains($candidat)) {
+            $this->candidats[] = $candidat;
+            $candidat->setCompetition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidat(Candidat $candidat): self
+    {
+        if ($this->candidats->contains($candidat)) {
+            $this->candidats->removeElement($candidat);
+            // set the owning side to null (unless already changed)
+            if ($candidat->getCompetition() === $this) {
+                $candidat->setCompetition(null);
             }
         }
 
