@@ -24,7 +24,12 @@ class VotantController extends AbstractController
             'votants' => $votantRepository->findAll(),
         ]);
     }
+    /**
+    *@Route("/connexion/id",name="votant_login")
+     */
+    public function login(Candidat $candidat){
 
+    }
     /**
      * @Route("/new", name="votant_new", methods={"GET","POST"})
      */

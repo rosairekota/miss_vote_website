@@ -24,12 +24,14 @@ class CandidatController extends AbstractController
      * @Route("/", name="candidat_index", methods={"GET"})
      */
     public function index(Request $request,PaginatorInterface $pagination, ThemeRepository $themeRepository): Response
-    {
+    {   $comp=$$request->session->get('compSession',[]);
         $themeSearch= new ThemeSearch();
         $form=$this->createForm(ThemeSearchType::class,$themeSearch);
          $form->handleRequest($request);
 
          $themes=$pagination->paginate($themeRepository->getPaginate(),$request->query->getInt('page',1),8);
+
+     
         return $this->render('candidat/index.html.twig', [
             'themes' => $themes,
             'form'      =>$form->createView()

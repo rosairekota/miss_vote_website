@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-primary mb-4">
+<nav class="navbar navbar-expand-md navbar-dark bg-pro mb-4">
       <a class="navbar-brand" href="#">Miss Congo</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -15,15 +15,22 @@
             <a class="nav-link" href="#">News</a>
           </li>
         </ul>
-        
          <ul class="navbar-nav ml-auto">
+        {% if app.session is not null %}
+           <li class="nav-item active">
+            <a class="nav-link" href="#">Votre Profil</a>
+    
+          </li>
+        {% else %}
+        
           <li class="nav-item active">
             <a class="nav-link" href="#">Connexion</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="#">Inscription</a>
           </li>
-         
+          </ul>
+          {% endif %}
         
       </div>
     </nav>

@@ -1,0 +1,16 @@
+ 
+         
+                <div class="col-sm-6 offset-3">
+                    {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                    {% for message in app.flashes('warning') %}
+                    <div class="alert alert-warning">
+                        {{message}}
+                    </div>
+                    {% endfor %}
+
+                </div>
+           
