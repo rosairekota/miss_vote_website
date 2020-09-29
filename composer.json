@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "knplabs/knp-paginator-bundle": "^5.2",
         "liip/imagine-bundle": "^2.3",
+        "payum/payum-bundle": "^2.4",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "5.1.*",
         "symfony/console": "5.1.*",
@@ -31,6 +32,7 @@
         "symfony/validator": "5.1.*",
         "symfony/web-link": "5.1.*",
         "symfony/yaml": "5.1.*",
+        "twig/twig": "v2.12.5",
         "vich/uploader-bundle": "^1.14"
     },
     "require-dev": {

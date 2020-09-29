@@ -24,7 +24,7 @@ class CandidatController extends AbstractController
      * @Route("/", name="candidat_index", methods={"GET"})
      */
     public function index(Request $request,PaginatorInterface $pagination, ThemeRepository $themeRepository): Response
-    {   $comp=$$request->session->get('compSession',[]);
+    {   //$comp=$$request->session->get('compSession',[]);
         $themeSearch= new ThemeSearch();
         $form=$this->createForm(ThemeSearchType::class,$themeSearch);
          $form->handleRequest($request);
