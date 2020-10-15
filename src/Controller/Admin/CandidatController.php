@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/candidat")
+ * @Route("/admin")
  */
 class CandidatController extends AbstractController
 {
@@ -20,7 +20,7 @@ class CandidatController extends AbstractController
      */
     public function index(CandidatRepository $candidatRepository): Response
     {
-        return $this->render('candidat/index.html.twig', [
+        return $this->render('admin/candidat/index.html.twig', [
             'candidats' => $candidatRepository->findAll(),
         ]);
     }
@@ -42,7 +42,7 @@ class CandidatController extends AbstractController
             return $this->redirectToRoute('candidat_index');
         }
 
-        return $this->render('candidat/new.html.twig', [
+        return $this->render('admin/candidat/new.html.twig', [
             'candidat' => $candidat,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class CandidatController extends AbstractController
      */
     public function show(Candidat $candidat): Response
     {
-        return $this->render('candidat/show.html.twig', [
+        return $this->render('admin/candidat/show.html.twig', [
             'candidat' => $candidat,
         ]);
     }
@@ -72,7 +72,7 @@ class CandidatController extends AbstractController
             return $this->redirectToRoute('candidat_index');
         }
 
-        return $this->render('candidat/edit.html.twig', [
+        return $this->render('admin/candidat/edit.html.twig', [
             'candidat' => $candidat,
             'form' => $form->createView(),
         ]);

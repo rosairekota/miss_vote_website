@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Votant{% endblock %}
+
+{% block body %}
+    <h1>Create new Votant</h1>
+
+    {{ include('votant/_form.html.twig') }}
+
+    <a href="{{ path('votant_index') }}">back to list</a>
+{% endblock %}

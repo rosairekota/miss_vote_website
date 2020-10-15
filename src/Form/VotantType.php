@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Votant;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,9 +19,16 @@ class VotantType extends AbstractType
             ->add('email')
             ->add('adresse')
             ->add('telephone')
-            ->add('motdepass')
-            ->add('photoName')
-            ->add('category')
+            ->add('motdepass',PasswordType::class,['label'=>'Mot de passe'])
+            //->add('photoName')
+            ->add('category',ChoiceType::class,[
+                'label'     =>'Categorie',
+                'multiple'  =>false,
+                'required'  => false,
+                'choices'=>$this->getChoices()
+
+                
+            ])
             ->add('sexe')
         ;
     }
@@ -29,5 +38,12 @@ class VotantType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Votant::class,
         ]);
+    }
+      private function getChoices()
+    {
+        
+        $final_choces = ['VotantNormal'=>'Vontant simple'];
+       
+        return $final_choces;
     }
 }

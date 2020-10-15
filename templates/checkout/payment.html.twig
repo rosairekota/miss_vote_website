@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Checkout payment - Ecommerce demo' %}
+
+{% block body %}
+
+  <div class="container content-light content-centered">
+    <h1 class="lead text-center text-primary">Veuillez effectuer votre payment</h1>
+    <div class="card">
+      <h2 class="card-title lead text-center">Les options du payement:</h2>
+        <div class="card-body" style="border: 1px solid gray;">
+           
+                <form id="paypal-express-checkout" method="post" action="{{ url('checkout_payment_paypal') }}" class="pull-right">
+                    <div class="btn-paypal p-4" style="width: 50px;">
+                    </div> 
+                </form>
+
+         
+        </div>
+       
+    </div>
+
+  </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+  <script>
+window.paypalCheckoutReady = function () {
+  paypal.checkout.setup('TM23WPCQUEY42', {
+  // paypal.checkout.setup(null, {
+    //locale: (document.getElementsByTagName('html')[0].lang == 'de') ? 'de_DE' : 'en_EN',
+    locale: 'de_DE',
+    //locale: 'en_US',
+    env: 'sandbox{#live#}',
+    environment: 'sandbox{#live#}',
+    //container: 'paypal-express-checkout',
+    //button: 'checkout-payment-paypal-button',
+    buttons: [
+        {
+            container: 'paypal-express-checkout',
+            type: 'checkout'
+        }
+    ],
+    cancelUrl: '{{ url('checkout_payment_paypal', {'cancel': 1}) }}'
+  });
+};
+</script>
+<script src="//www.paypalobjects.com/api/checkout.js" async></script>
+{% endblock %}

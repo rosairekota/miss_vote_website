@@ -40,17 +40,17 @@ class Competition
     private $lieu;
 
     /**
-     * @ORM\OneToMany(targetEntity=Theme::class, mappedBy="competition")
+     * @ORM\OneToMany(targetEntity=Theme::class, mappedBy="competition", orphanRemoval=true, cascade={"persist"},fetch="EAGER")
      */
     private $themes;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cote::class, mappedBy="competition")
+     * @ORM\OneToMany(targetEntity=Cote::class, mappedBy="competition", orphanRemoval=true, cascade={"persist"},fetch="EAGER")
      */
     private $cotes;
 
     /**
-     * @ORM\OneToMany(targetEntity=Candidat::class, mappedBy="competition")
+     * @ORM\OneToMany(targetEntity=Candidat::class, mappedBy="competition", orphanRemoval=true, cascade={"persist"},fetch="EAGER")
      */
     private $candidats;
 

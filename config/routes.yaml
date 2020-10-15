@@ -4,3 +4,6 @@
 #app_logout:
     #path: /logout
     #methods: GET
+# checkout_payment_paypal:
+#   path: /checkout/payment/paypal
+#   controller: App\Controller\checkout\PaymentController::index

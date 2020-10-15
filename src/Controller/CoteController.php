@@ -74,7 +74,7 @@ class CoteController extends AbstractController
                     $em->persist($votant);
                     $em->persist($coteEntity);
                     $em->flush();
-            return $this->render('cote/vote.html.twig',['cote'=>$coteEntity]);
+            return $this->render('cote/payment.html.twig',['cote'=>$coteEntity]);
         }
        
       

@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    
+   <div class="conatiner">
+    <div class="row">
+        {% include "partials/_flash.html.twig" %}
+        <div class="col-md-4 offset-md-4">
+            {{form_start(form)}}
+            <div class="form-signin">
+                <h1 class="h3 mb-3 font-weight-normal text-center">Veuillez vous connecter</h1>
+                <label for="inputEmail" class="sr-only">Addresse Email</label>
+                {{form_row(form.email,{'attr':{'id':'inputEmail', 'class':'form-control mb-2','placeholder':'Inserer votre Email'},'required':'false'})}}
+                {# <input type="email" id="inputEmail" class="form-control mb-2" placeholder="" required autofocus> #}
+                <label for="inputPassword" class="sr-only">Password</label>
+                  {{form_row(form.motdepass,{'attr':{'id':'inputPassword','placeholder':'Mot de pass'},'required':'false'})}}
+                <div class="checkbox mb-3">
+                    <label>
+                    <input type="checkbox" value="remember-me"> <a href="{{path('votant_new')}}">Mot de passe oublié?</a>
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">connexion</button>
+                  <label>
+                    <input type="checkbox" value="remember-me"> <a href="{{path('votant_new')}}">Nouveau Compte</a>
+                    </label>
+                <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+                </div>
+                {{form_end(form)}}
+        </div>
+    </div>
+   </div>
+{% endblock body %}

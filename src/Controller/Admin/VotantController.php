@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin")
+ * @Route("/admin/votant")
  */
 class VotantController extends AbstractController
 {
@@ -20,15 +20,9 @@ class VotantController extends AbstractController
      */
     public function index(VotantRepository $votantRepository): Response
     {
-        return $this->render('votant/index.html.twig', [
+        return $this->render('admin/votant/index.html.twig', [
             'votants' => $votantRepository->findAll(),
         ]);
-    }
-    /**
-    *@Route("/connexion/id",name="votant_login")
-     */
-    public function login(Candidat $candidat){
-
     }
     /**
      * @Route("/new", name="votant_new", methods={"GET","POST"})
@@ -47,7 +41,7 @@ class VotantController extends AbstractController
             return $this->redirectToRoute('votant_index');
         }
 
-        return $this->render('votant/new.html.twig', [
+        return $this->render('admin/votant/new.html.twig', [
             'votant' => $votant,
             'form' => $form->createView(),
         ]);
@@ -58,7 +52,7 @@ class VotantController extends AbstractController
      */
     public function show(Votant $votant): Response
     {
-        return $this->render('votant/show.html.twig', [
+        return $this->render('admin/votant/show.html.twig', [
             'votant' => $votant,
         ]);
     }
@@ -77,7 +71,7 @@ class VotantController extends AbstractController
             return $this->redirectToRoute('votant_index');
         }
 
-        return $this->render('votant/edit.html.twig', [
+        return $this->render('admin/votant/edit.html.twig', [
             'votant' => $votant,
             'form' => $form->createView(),
         ]);
