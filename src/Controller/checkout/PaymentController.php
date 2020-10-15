@@ -16,12 +16,12 @@ class PaymentController extends AbstractController{
 private Payum $payum;
 private EntityManagerInterface $doctrine;
 
- public function __construct(Payum $payum,EntityManagerInterface $doctrine) 
+ public function __construct(Payum $payum,EntityManagerInterface $doctrine)
     {
         $this->payum = $payum;
         $this->doctrine = $doctrine;
     }
-      
+
     /**
      * @Route("/checkout/payment/", name="checkout_payment")
      */
@@ -31,14 +31,15 @@ private EntityManagerInterface $doctrine;
             'montant'   =>100
         ]);
     }
-       /**
+
+   /**
      * @Route("/checkout/payment/paypal", name="checkout_payment_paypal")
      */
     public function index(Request $request,SerializerInterface $serialize, EntityManagerInterface $em)
     {
-        
+
         //$checkout = $this->checkoutFacade->getCheckout();
-      
+
 
         if ($request->query->get('return')) {
             $token = $this->payum->getHttpRequestVerifier()->verify($request);
@@ -49,7 +50,7 @@ private EntityManagerInterface $doctrine;
                 'request' => $request->request->all(),
                 'query' => $request->query->all(),
             ], JsonResponse::HTTP_OK,['Content-Type'=>'application/javascript'], true);
-            
+
 
             return $view;
         }
@@ -60,7 +61,7 @@ private EntityManagerInterface $doctrine;
                 'request' => $request->request->all(),
                 'query' => $request->query->all(),
             ], JsonResponse::HTTP_OK,['Content-Type'=>'application/javascript'], true);
-            
+
 
             return $view;
         }
@@ -86,5 +87,14 @@ private EntityManagerInterface $doctrine;
         $view = $this->redirect($authorizeToken->getTargetUrl());
 
         return $view;
+    }
+
+
+    /**
+     * @Route("/checkout/view", name="checkout_review")
+     */
+    public function review(Request $request,SerializerInterface $serialize, EntityManagerInterface $em)
+    {
+        return new Response('review page');
     }
 }

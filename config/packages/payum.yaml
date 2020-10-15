@@ -9,8 +9,9 @@ payum:
     gateways:
         offline:
             factory: offline
+
         paypal:
-            factory: paypal
+            factory: paypal_express_checkout
             username:  'rkota_api1.nsat.africa'
             password:  'Z5R3Z4KLK7TVL54G'
             signature: 'A6Acs5FR3vMOfBMu3-nX9RducZb.AW2NAg9adLBgxcUpx7P1bv3xj-u2'

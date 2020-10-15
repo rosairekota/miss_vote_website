@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Form;
+
 use App\Entity\Search\ThemeSearch;
 use App\Entity\Theme;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
