@@ -15,8 +15,7 @@ class HomeController extends AbstractController
        
 
         
-        return $this->render('checkout/payment.html.twig', [
-            'paymentMethods' =>[]
+        return $this->render('home/index.html.twig', [
         ]);
     }
 }
