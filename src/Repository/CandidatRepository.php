@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Candidat;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Candidat|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,44 @@ class CandidatRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Candidat::class);
+    }
+
+     public function getPaginate()
+    {
+        $query=$this->getQueryBuiler();
+
+        return $query->getQuery();
+           
+    }
+     public function searchcandidateFromTheme(Candidat $candidat)
+    {
+        $query=$this->getQueryBuiler();
+         if ($candidat->getNom()) {
+            $query=$query->andWhere('c.nom=:val')
+                         ->setParameter('val',$candidat->getNom());
+                         
+         }
+        
+       // $id=settype($candidat->getId(),'integer');
+
+         if ($candidat->getId()) {
+            $query=$query->andWhere('c.id=:val')
+                         ->setParameter('val',$candidat->getId());
+                         
+         }
+        return $query->orderBy('c.id','DESC')
+                    ->getQuery();
+        ;
+    }
+    /**
+     * 
+     * @return QueryBuilder|null
+     */
+    private function getQueryBuiler(): ?QueryBuilder
+    {
+        return $this->createQueryBuilder('c');
+            
+        
     }
 
     // /**

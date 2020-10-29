@@ -1,0 +1,34 @@
+<div class="container">
+  
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row">
+          
+      
+              {% for candidat in candidats %}
+              
+            <div class="col-md-3">
+              <div class="card mb-4 shadow-sm">
+                <img class="card-img-top" src="{{ asset('images/static/team-1.jpg')}}" alt="Card image cap">
+               <h2 class="card-title lead">{{candidat.nom}}</h2>
+                   <small class="text-muted">Annee de Naissance: {#{{candidat.dateNaissance}}#}</small> 
+                <div class="card-body">
+                  {# <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> #}
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a class="btn btn-sm btn-outline-secondary" href="{{path('candidat_countVote',{'id':candidat.id})}}">{{candidat.cotes|length}} Voix</a>
+                      <a class="btn btn-sm btn-outline-secondary" href="{{path('candidat_show',{'id':candidat.id})}}">Suivre</a>
+                      <a class="btn btn-sm btn-outline-secondary" href="{{path('votant_vote',{'id':candidat.id})}}">Voter</a>
+                    </div>
+                 
+                  </div>
+                </div>
+              </div>
+            </div>
+             {% endfor %}
+             
+          
+          </div>
+        </div>
+          
+      </div>

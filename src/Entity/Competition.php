@@ -45,11 +45,6 @@ class Competition
     private $themes;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cote::class, mappedBy="competition", orphanRemoval=true, cascade={"persist"},fetch="EAGER")
-     */
-    private $cotes;
-
-    /**
      * @ORM\OneToMany(targetEntity=Candidat::class, mappedBy="competition", orphanRemoval=true, cascade={"persist"},fetch="EAGER")
      */
     private $candidats;
@@ -57,7 +52,6 @@ class Competition
     public function __construct()
     {
         $this->themes = new ArrayCollection();
-        $this->cotes = new ArrayCollection();
         $this->candidats = new ArrayCollection();
     }
 
@@ -150,36 +144,36 @@ class Competition
         return $this;
     }
 
-    /**
-     * @return Collection|Cote[]
-     */
-    public function getCotes(): Collection
-    {
-        return $this->cotes;
-    }
+    // /**
+    //  * @return Collection|Cote[]
+    //  */
+    // public function getCotes(): Collection
+    // {
+    //     return $this->cotes;
+    // }
 
-    public function addCote(Cote $cote): self
-    {
-        if (!$this->cotes->contains($cote)) {
-            $this->cotes[] = $cote;
-            $cote->setCompetition($this);
-        }
+    // public function addCote(Cote $cote): self
+    // {
+    //     if (!$this->cotes->contains($cote)) {
+    //         $this->cotes[] = $cote;
+    //         $cote->setCompetition($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeCote(Cote $cote): self
-    {
-        if ($this->cotes->contains($cote)) {
-            $this->cotes->removeElement($cote);
-            // set the owning side to null (unless already changed)
-            if ($cote->getCompetition() === $this) {
-                $cote->setCompetition(null);
-            }
-        }
+    // public function removeCote(Cote $cote): self
+    // {
+    //     if ($this->cotes->contains($cote)) {
+    //         $this->cotes->removeElement($cote);
+    //         // set the owning side to null (unless already changed)
+    //         if ($cote->getCompetition() === $this) {
+    //             $cote->setCompetition(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection|Candidat[]

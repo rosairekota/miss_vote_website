@@ -45,7 +45,7 @@ class Votant
     private $telephone;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cote::class, mappedBy="votant")
+     * @ORM\OneToMany(targetEntity=Cote::class, mappedBy="votant", cascade={"persist"})
      */
     private $cotes;
 

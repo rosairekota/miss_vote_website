@@ -1,4 +1,7 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    <button class="site-btn btn-block">{{ button_label|default('Enregistrer') }}</button>
+    <label>
+        <input type="hidden" value="remember-me"> <a href="#">Connexion</a>
+     </label>
 {{ form_end(form) }}

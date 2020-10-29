@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Candidat;
 use App\Entity\Cote;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,6 +18,16 @@ class CoteRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Cote::class);
+    }
+     public function findByCandidate(Candidat $candidat)
+    {
+           return  $this->createQueryBuilder('c')
+                        ->andWhere('c.candidat_id = :val')
+                        ->setParameter('val', $candidat->getId())
+                        ->orderBy('c.id', 'ASC')
+                        ->getQuery()
+                        ->getResult()
+        ;
     }
 
     // /**

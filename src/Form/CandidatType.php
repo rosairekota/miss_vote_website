@@ -19,7 +19,10 @@ class CandidatType extends AbstractType
             ->add('email')
             ->add('origine')
             ->add('telephone')
-            ->add('photoName')
+            ->add('imageFile', FileType::class, [
+                'label'     => 'Choisir l\'image',
+                'required'  => false
+            ])
             ->add('motdepasse')
             ->add('sexe')
             ->add('dateNaissance')

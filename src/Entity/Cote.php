@@ -28,19 +28,14 @@ class Cote
     private $coteJury;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Votant::class, inversedBy="cotes")
+     * @ORM\ManyToOne(targetEntity=Votant::class, inversedBy="cotes", cascade={"persist"})
      */
     private $votant;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Candidat::class, inversedBy="cotes")
+     * @ORM\ManyToOne(targetEntity=Candidat::class, inversedBy="cotes", cascade={"persist"})
      */
     private $candidat;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Competition::class, inversedBy="cotes")
-     */
-    private $competition;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=0, nullable=true)
@@ -96,18 +91,6 @@ class Cote
     public function setCandidat(?Candidat $candidat): self
     {
         $this->candidat = $candidat;
-
-        return $this;
-    }
-
-    public function getCompetition(): ?Competition
-    {
-        return $this->competition;
-    }
-
-    public function setCompetition(?Competition $competition): self
-    {
-        $this->competition = $competition;
 
         return $this;
     }

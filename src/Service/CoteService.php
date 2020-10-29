@@ -58,6 +58,6 @@ class CoteService
             35=>'18'
         ];
     }
-
+   
 }
 

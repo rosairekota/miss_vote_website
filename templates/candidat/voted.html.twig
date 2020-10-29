@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidat{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+    <div class="row">     
+    <div class="col-md-8">
+      <h2 class="lead text-center">Les Votants</h2> 
+     <div class="row img-thumbnail bg-light">
+        
+         {% for  post in  candidat.posts %}
+           
+         <div class="col-md-4">
+
+             <table class="table table">
+                 <thead>
+                     <th>Nom</th>
+                     <th>Email</th>
+                    
+                 </thead>
+                 <tbody>
+                    {% for vote in candidat.cotes %}
+                         <tr>
+                             <td>{{ vote.votant.nom}}</td>
+                             <td>{{ vote.votant.email}}</td>
+                           
+                         </tr>
+                    {% endfor %}
+                 </tbody>
+             </table>
+         </div>
+          {% endfor %}
+     </div>
+            </div>
+            <div class="col-md-4">
+            <h1 class="text-center lead">{{ candidat.nom }} {{ candidat.postnom }}-{{ candidat.prenom }}</h1>
+              <div class="card mb-4 shadow-sm">
+                <img class="card-img-top" src="{{ asset('images/static/team-1.jpg')}}" alt="Card image cap">
+               <h2 class="card-title lead">{{candidat.nom}}</h2>
+               <small class="text-muted">Sexe: {{ candidat.sexe }}</small>
+                   <small class="text-muted">Annee de Naissance: {{ candidat.dateNaissance ? candidat.dateNaissance|date('Y') : '' }}</small> 
+                   <small class="text-muted"> Ville d'origine  :{{ candidat.origine }}</small>
+                <div class="card-body">
+                  {# <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> #}
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                         <a class="btn btn-sm btn-outline-secondary"  href={{path('candidat_show',{'id':candidat.id})}}>Suivre</a>
+                      <a class="btn btn-sm btn-outline-secondary"  href={{path('votant_vote',{'id':candidat.id})}}>Voter</a>
+                    </div>
+                
+                </div>
+              </div>
+            </div>
+              <table class="table-stripted">
+        <tbody>
+            
+            <tr>
+                <th>Adresse</th>
+                <td>{{ candidat.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ candidat.telephone }}</td>
+            </tr>
+        </tbody>
+    </table>
+            </div>
+        </div>
+    </div>
+
+    {# <a href="{{ path('candidat_index') }}">back to list</a>
+
+    <a href="{{ path('candidat_edit', {'id': candidat.id}) }}">edit</a>
+
+    {{ include('candidat/_delete_form.html.twig') }} #}
+{% endblock %}

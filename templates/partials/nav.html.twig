@@ -1,36 +1,64 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-pro mb-4">
-      <a class="navbar-brand" href="#">Miss Congo</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ path('home')}}">Accueil <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('candidat_index')}}">Concours</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">News</a>
-          </li>
-        </ul>
-         <ul class="navbar-nav ml-auto">
-        {% if app.session is not null %}
-           <li class="nav-item active">
-            <a class="nav-link" href="#">Votre Profil</a>
-    
-          </li>
-        {% else %}
-        
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Connexion</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Inscription</a>
-          </li>
-          </ul>
-          {% endif %}
-        
-      </div>
-    </nav>
+<header class="header-section">
+		<div class="header-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-2 text-center text-lg-left">
+						<!-- logo -->
+						<a href="{{path('home')}}" class="site-logo">
+							<img src="{{asset('img/lo.jpg')}}" alt="">
+						</a>
+					</div>
+					<div class="col-xl-6 col-lg-5">
+                         
+					</div>
+					<div class="col-xl-4 col-lg-5">
+						<div class="user-panel">
+							<div class="up-item">
+								<i class="flaticon-profile"></i>
+								<a href="#">Connexion</a> Ou <a href="#">Creer un Compte</a>
+							</div>
+							<div class="up-item">
+								<div class="shopping-card">
+									<i class="flaticon-bag"></i>
+									<span>0</span>
+								</div>
+								<a href="#">Pub</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav class="main-navbar">
+			<div class="container">
+				<!-- menu -->
+				<ul class="main-menu">
+					<li><a href="{{path('candidat_index')}}">Candidates Miss</a></li>
+					<li><a href="#">Top Miss</a></li>
+					<li><a href="#">Challenge Miss</a></li>
+					<li><a href="#">Actualites Miss
+						<span class="new">New </span>
+					</a></li>
+					<li><a href="#">Prime Miss</a>
+						<ul class="sub-menu">
+							<li><a href="#">Sneakers</a></li>
+							<li><a href="#">Sandals</a></li>
+							<li><a href="#">Formal Shoes</a></li>
+							<li><a href="#">Boots</a></li>
+							<li><a href="#">Flip Flops</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Blog Miss </a>
+						<ul class="sub-menu">
+							<li><a href="./product.html">Product Page</a></li>
+							<li><a href="./category.html">Category Page</a></li>
+							<li><a href="./cart.html">Cart Page</a></li>
+							<li><a href="./checkout.html">Checkout Page</a></li>
+							<li><a href="./contact.html">Contact Page</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Contact Miss</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>

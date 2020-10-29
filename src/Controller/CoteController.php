@@ -41,27 +41,33 @@ class CoteController extends AbstractController
             extract($votant);
                 $coteObtenu=0;
                 $montantAPayer=1;
+
          // Etape 3: on parcours les montants a payer pour obtenir les cotes corresponadants
 
-            $cotes=$this->coteService->findCotes();
+            $cotes= [
+                10=>'10', 
+                15=>'12' ,
+                20=>'15',
+                25=>'16',
+                30=>'17',
+                35=>'18'
+             ];
             foreach ($cotes as $cote => $point) {
             if ($request->request->getInt('cote')==$cote) {
                 $coteObtenu=$point;
                 $montantAPayer=$cote*($request->request->getInt('numberCotes')==0?'1':$request->request->getInt('numberCotes'));
-                    // dd('montant unitaire ='.$request->request->getInt('cote'),'cote ='. $coteObtenu,'montant a payer='.$montantAPayer);
-                    // $coteEntity->setCandidat($candidat);
-                    // dd($coteEntity->getCandidat());
+                    
             }
         }
 
         // Etape 4: on initialise les cotes
+      
          $coteEntity =new Cote();
-        $com=new Competition();
-        $com->setId(\uniqid());
+       
+      
 
          $coteEntity->setCandidat($candidat)
                           ->setVotant($votant)
-                          ->setCompetition(null);
                           ;  if ($coteEntity->getVotant()->getCategory()=='votant') {
                                  $coteEntity->setCoteVotant($coteObtenu);
                              }
@@ -70,11 +76,17 @@ class CoteController extends AbstractController
                              }
                            $coteEntity->setMontantPaye($montantAPayer);
                           
-                    $em->persist($candidat);
-                    $em->persist($votant);
-                    $em->persist($coteEntity);
-                    $em->flush();
-            return $this->render('cote/payment.html.twig',['cote'=>$coteEntity]);
+                    
+                    if ($coteEntity!=null) {
+                       $em->persist($candidat);
+                       $em->persist($votant);
+                       $em->persist($coteEntity);
+                       $em->flush();
+                      dd($coteEntity);
+                    }
+                 dd('c\'est null ');
+                   
+            return $this->render('cote/vote.html.twig',['cote'=>$coteEntity]);
         }
        
       

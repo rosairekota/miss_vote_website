@@ -2,14 +2,18 @@
 namespace App\Controller\checkout;
 
 use Payum\Core\Payum;
+use App\Form\PaymentType;
+use Payum\Core\Request\Sync;
 use App\Entity\Payment\Payment;
+use Payum\Core\Request\GetHumanStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Payum\Core\Exception\RequestNotSupportedException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 
 class PaymentController extends AbstractController{
 
@@ -95,6 +99,89 @@ private EntityManagerInterface $doctrine;
      */
     public function review(Request $request,SerializerInterface $serialize, EntityManagerInterface $em)
     {
-        return new Response('review page');
+         $token = $this->payum->getHttpRequestVerifier()->verify($request);
+
+        $gateway = $this->payum->getGateway($token->getGatewayName());
+        try {
+            $gateway->execute(new Sync($token));
+        } catch (RequestNotSupportedException $e) {
+        }
+
+        $gateway->execute($status = new GetHumanStatus($token));
+
+        if (!$status->isAuthorized()) {
+            throw new \Exception(' Le Payement n\'a pas été authorisé');
+        }
+        // $checkout=new Payment();
+        // $form = $this->createForm(PaymentType::class,$checkout);
+
+        // $form->handleRequest($request);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     // capture
+            $captureToken = $this->payum->getTokenFactory()->createCaptureToken(
+                $token->getGatewayName(),
+                $status->getFirstModel(),
+                'checkout_finalize' //$this->utils->generateUrl('checkout_finalize', UrlGeneratorInterface::ABSOLUTE_URL)
+            );
+
+            return $this->redirect($captureToken->getTargetUrl());
+
+           
+        
+
+        return $this->render('checkout/review.html.twig',
+            [
+                //'form' => $form,
+                'status' => $status,
+            ]
+           
+        );
+
+      
+    
+       // return new Response('review page');
+    }
+
+
+    /**
+     * @Route("/checkout/finalize", name="checkout_finalize")
+     */
+     public function finalize(Request $request)
+    {
+        $token = $this->payum->getHttpRequestVerifier()->verify($request);
+
+        $gateway = $this->payum->getGateway($token->getGatewayName());
+        try {
+            $gateway->execute(new Sync($token));
+        } catch (RequestNotSupportedException $e) {
+        }
+
+        $gateway->execute($status = new GetHumanStatus($token));
+
+        if (!$status->isCaptured()) {
+            throw new \Exception('Payment n\'a pas  été capturé ');
+
+            // @todo add payment failure msg
+            //$view = View::createRouteRedirect('checkout_payment');
+
+            //return $view;
+        }
+        // $cart = $this->cartManager->loadCart();
+        // $this->cartManager->resetCart($cart);
+
+        $request->getSession()->set('order_id', $status->getFirstModel()->getId());
+
+        
+
+        return $this->redirectToRoute('checkout_success');
+    }
+
+    /**
+     * @Route("/checkout/success", name="checkout_success")
+     */
+    public function checkoutSuccess(){
+        $this->addFlash('success','Le payement a reussi');
+        return $this->redirectToRoute('candidat_index');
     }
 }

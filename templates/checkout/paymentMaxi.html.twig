@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<script src="https://api-testbed.maxicashapp.com/Merchant/api.asmx"></script>
+    
+    <div class="container">
+    <form action="https://api.maxicashapp.com/PayEntryPost" method="POST">
+    <input type="input" name="PayType" value="MaxiCash">
+    <input type="hidden" name="Amount" value="{TOTAL_AMOUNT}">
+    <input type="hidden" name="Currency" value="MaxiDollar">
+    <input type="hidden" name="Telephone" value="{MAXICASH_TELEPHONE_NO}">
+ <input type="hidden" name="Email" value="{MAXICASH_EMAIL}">
+   
+    <input type="hidden" name="MerchantID" value="{YOUR_MERCHANT_ID}">
+    <input type="hidden" name="MerchantPassword" value="{YOUR_MERCHANT_PASSWORD}">
+    <input type="hidden" name="Language" value="En">
+    <input type="hidden" name="Reference" value="{REFERENCE_OF_TRANSACTION}">
+    <input type="hidden" name="accepturl" value="{SUCCESS_URL}">
+    <input type="hidden" name="cancelurl" value="{CANCEL_URL}">
+    <input type="hidden" name="declineurl" value="{FAILURE_URL}">
+    <input type="hidden" name="notifyurl" value="{NOTIFY_URL}">
+	</form>
+    </div>
+    <a id="mxc00"><script async src="https://api-testbed.maxicashapp.com/mxcashbtn.js"></script> </a>
+
+{% endblock body %}

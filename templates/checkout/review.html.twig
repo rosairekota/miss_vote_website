@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <div class="container">
+        {{form_start(form)}}
+        <div class="form-row">
+            <button type="submit" class="btn-success">Valider votre payement</button>
+        </div>
+        {{form_end(form)}}
+    </div>
+{% endblock body %}

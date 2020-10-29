@@ -118,7 +118,6 @@ class AppFixtures extends Fixture
 
                     $cotes->setCandidat($candidat)
                           ->setVotant($votant)
-                          ->setCompetition($comp)
                           ->setCoteVotant($faker->numberBetween(0,20))
                           ->setCoteJury($faker->numberBetween(0,20));
                     $manager->persist($cotes);

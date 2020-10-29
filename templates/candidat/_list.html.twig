@@ -1,0 +1,64 @@
+	<section class="product-filter-section">
+		<div class="container">
+			<div class="section-title">
+				<h2>CANDIDATES MISS RDCONGO 2020</h2>
+			</div>
+			{% if form is defined %}
+              
+           
+						<div class="header-search-form">
+							{{form_start(form) }}
+							<button type="submit"><i class="flaticon-search"></i></button>
+							{{ form_end(form) }}
+							
+						</div>
+             {% endif %}
+			<div class="row">
+                 {% for candidat in candidats %}
+				<div class="col-lg-3 col-sm-6">
+					<div class="product-item">
+						<div class="pi-pic">
+							{% if candidat.photoName %}
+								<img src="{{ vich_uploader_asset(candidat,'imageFile')}}" alt="" class="card-img-top"
+									style="width: 100%; height: auto;">
+								{% else %}
+
+								<img src="{{ asset('img/candidats/mis.jpg')}}" alt="pas d'image" class="card-img-top"
+									style="width: 100%; height: auto;">
+								{% endif %}
+							<div class="pi-links">
+								<a href="{{path('candidat_countVote',{'id':candidat.id})}}" class="add-card"><i class="flaticon-bag"></i><span>{{candidat.cotes|length}} VOTES</span></a> 
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a> <br>
+                                <a class="btn btn-sm btn-outline-secondary mr-2" href="{{path('candidat_show',{'id':candidat.id})}}">Suivre</a>
+                                 <a class="btn btn-sm btn-outline-secondary" href="{{path('votant_vote',{'id':candidat.id})}}">Voter</a>
+                     
+                            </div>
+						</div>
+						<div class="pi-text">
+							<h6>{{candidat.origine }}</h6>
+							<p>{{candidat.nom}} </p>
+						</div>
+					</div>
+				</div>
+                {% endfor %}
+
+				
+			</div>
+            <div class="pagination">
+            {{ knp_pagination_render(candidats) }}
+            </div>
+			<div class="text-center pt-5">
+				<button class="site-btn sb-line sb-dark">Embassadrice de la beauté Congolaise</button>
+			</div>
+		</div>
+	</section>
+    <section class="banner-section">
+		<div class="container">
+			<div class="banner set-bg" data-setbg="img/ba.jpg">
+				<div class="tag-new">NEW</div>
+				<span>..</span>
+				<h2>.</h2>
+				<a href="#" class="site-btn">Qui sera la Reine</a>
+			</div>
+		</div>
+	</section>
