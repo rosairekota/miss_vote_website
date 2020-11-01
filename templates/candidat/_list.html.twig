@@ -19,11 +19,11 @@
 					<div class="product-item">
 						<div class="pi-pic">
 							{% if candidat.photoName %}
-								<img src="{{ vich_uploader_asset(candidat,'imageFile')}}" alt="" class="card-img-top"
+								<img src="{{ vich_uploader_asset(candidat,'imageFile')}}" 
 									style="width: 100%; height: auto;">
 								{% else %}
 
-								<img src="{{ asset('img/candidats/mis.jpg')}}" alt="pas d'image" class="card-img-top"
+								<img src="{{ asset('img/candidats/miss.jpg')}}" alt="pas d'image" 
 									style="width: 100%; height: auto;">
 								{% endif %}
 							<div class="pi-links">

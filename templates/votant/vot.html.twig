@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votant index{% endblock %}
+
+{% block body %}
+    <div class="container my-4 p-4">
+        <h3 class="text-center text-primary">Inserer votre cote</h3>
+        <div class="container my-3 p-4 img-thumbnail bg-secondary">
+        <form action="{{ path('checkout_payment')}}" method="POST">
+        <div class="row">
+            <div class="col-md-4 offset-md-3">
+                <select name="cote" id="cote" name="cote" class="form-control">
+                {% for key,cote in cotes %}
+                 
+                      <option value="{{key}}"> {{cote}} points ={{key}} $</option>
+                     
+                      
+                   
+                {% endfor %}
+            </select>
+            </div>
+            <div class="col-md-4 offset-md-3 mt-2">
+               <span class="text-light lead">Nombre de fois de votes</span>
+                <input type="number" name="numberCotes" id="numberCotes" class="ml-3 form-control" style="width: 100px;">
+            </div>
+            
+           </div>
+          <div class="form-group mt-3">
+                <center><button type="submit" class="site-btn btn-md text-center">voter candidat</button></center>
+          </div>
+        </form>
+        </div>
+        
+    </div>
+{% endblock %}

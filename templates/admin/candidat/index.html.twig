@@ -1,55 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Candidat index{% endblock %}
+{% block title %}Admin-Candidat{% endblock %}
 
 {% block body %}
-    <h1>Candidat index</h1>
-
-    <table class="table">
+<div class="container mt-4">
+    <h1 class="lead text-center">Gerer Les Candidat</h1>
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+    {% endfor %}
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Postnom</th>
-                <th>Prenom</th>
-                <th>Adresse</th>
-                <th>Email</th>
-                <th>Origine</th>
-                <th>Telephone</th>
-                <th>PhotoName</th>
-                <th>Motdepasse</th>
-                <th>Sexe</th>
-                <th>DateNaissance</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for candidat in candidats %}
+             {% for candidat in candidats %}
             <tr>
-                <td>{{ candidat.id }}</td>
+                 <td>{{candidat.id }}</td>
                 <td>{{ candidat.nom }}</td>
                 <td>{{ candidat.postnom }}</td>
-                <td>{{ candidat.prenom }}</td>
-                <td>{{ candidat.adresse }}</td>
-                <td>{{ candidat.email }}</td>
-                <td>{{ candidat.origine }}</td>
-                <td>{{ candidat.telephone }}</td>
-                <td>{{ candidat.photoName }}</td>
-                <td>{{ candidat.motdepasse }}</td>
-                <td>{{ candidat.sexe }}</td>
-                <td>{{ candidat.dateNaissance ? candidat.dateNaissance|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('candidat_show', {'id': candidat.id}) }}">show</a>
-                    <a href="{{ path('candidat_edit', {'id': candidat.id}) }}">edit</a>
+                <td class="admin-action"><a href="{{ path('admin_candidat_edit',{'id': candidat.id}) }}"
+                        class="btn btn-secondary">Editer</a>
+                    <form method="post" action="{{ path('candidat_delete', {'id': candidat.id}) }}" onsubmit="return confirm('Est-vous sur de supprimer?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ candidat.id) }}">
+                        <button class="btn">Delete</button>
+                    </form>
+
                 </td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">no records found</td>
-            </tr>
-        {% endfor %}
+            {% endfor %}
         </tbody>
     </table>
+    <div class="text-right">
+        <a href="{{ path('admin_candidat_new') }}" class="btn btn-primary">Créer un nouveau Candidat</a>
+    </div>
 
-    <a href="{{ path('candidat_new') }}">Create new</a>
+</div>
+   
 {% endblock %}

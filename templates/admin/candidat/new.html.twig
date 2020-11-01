@@ -3,9 +3,11 @@
 {% block title %}New Candidat{% endblock %}
 
 {% block body %}
-    <h1>Create new Candidat</h1>
+    <div class="container">
+        <h1>Create new Candidat</h1>
 
     {{ include('candidat/_form.html.twig') }}
 
-    <a href="{{ path('candidat_index') }}">back to list</a>
+    <a href="{{ path('admin_candidat_index') }}" class="site-btn">Afficher la liste</a>
+    </div>
 {% endblock %}

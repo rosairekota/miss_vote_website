@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CandidatRepository::class)
+ * @Vich\Uploadable
  */
 class Candidat
 {
@@ -70,7 +71,7 @@ class Candidat
 
      /**
      * @var File|null
-     * @Assert\Image(mimeTypes = "image/jpg", mimeTypesMessage="Seuls les images ayant l'extension jpg sont valides")
+     * @Assert\Image()
      * @Vich\UploadableField(mapping="candidat_image",fileNameProperty="photoName")
      */
     private $imageFile;

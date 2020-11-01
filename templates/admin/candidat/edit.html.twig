@@ -3,11 +3,13 @@
 {% block title %}Edit Candidat{% endblock %}
 
 {% block body %}
-    <h1>Edit Candidat</h1>
+    <div class="container">
+        <h1 class="lead text-center text-primary">Mise a jour du Candidat</h1>
 
-    {{ include('candidat/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('admin/candidat/_form.html.twig', {'button_label': 'Editer'}) }}
 
-    <a href="{{ path('candidat_index') }}">back to list</a>
+    <a href="{{ path('admin_candidat_index') }}">Afficher la liste</a>
 
-    {{ include('candidat/_delete_form.html.twig') }}
+    {{ include('admin/candidat/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

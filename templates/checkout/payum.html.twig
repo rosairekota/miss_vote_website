@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Checkout payment - Ecommerce demo' %}
+
+{% block body %}
+<section class="checkout-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 order-2 order-lg-1 offset-lg-2">
+					<div class="checkout-form">
+             <div class="cf-title">Mode de Payement</div>
+						<div class="row">
+							<div class="col-md-7">
+								<p>*Faites votre choix !</p>
+							</div>
+						</div>
+           
+						<ul class="payment-list">
+              <li> <form id="paypal-express-checkout" method="post" action="{{ url('checkout_payment_paypal') }}" class="pull-right">
+                 Paypal   
+            </form></li>
+							<li>Credit / Debit card<a href="#"><img src="{{ asset('img/mastercart.png')}}" alt=""></a></li>
+              	<li>Mpesa<a href="#"><img src="{{ asset('img/mastercart.png')}}" alt=""></a></li>
+                <li>Airtel Money<a href="#"><img src="{{ asset('img/mastercart.png')}}" alt=""></a></li>
+                <li>Orange Money<a href="#"><img src="{{ asset('img/mastercart.png')}}" alt=""></a></li>
+							
+						</ul>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</section>
+  
+
+{% endblock %}
+
+
+{% block javascripts %}
+  <script>
+window.paypalCheckoutReady = function () {
+  paypal.checkout.setup('TM23WPCQUEY42', {
+  // paypal.checkout.setup(null, {
+    //locale: (document.getElementsByTagName('html')[0].lang == 'de') ? 'de_DE' : 'en_EN',
+    //locale: 'de_DE',
+    locale: 'en_US',
+    env: 'sandbox{#live#}',
+    environment: 'sandbox{#live#}',
+    //container: 'paypal-express-checkout',
+    //button: 'checkout-payment-paypal-button',
+    buttons: [
+        {
+            container: 'paypal-express-checkout',
+            type: 'checkout'
+        }
+    ],
+    cancelUrl: "{{ url('checkout_payment_paypal', {'cancel': 1}) }}"
+  });
+};
+</script>
+<script src="//www.paypalobjects.com/api/checkout.js" async></script>
+{% endblock %}

@@ -38,12 +38,12 @@ class VotantController extends AbstractController
         if (empty($votes['votant'])) {
             return $this->redirectToRoute('votant_login',['id'=>$candidat->getId()],301);
         }
-        else{
-             return $this->redirectToRoute('checkout_payment',[], 301);
-        }
+        // else{
+        //      return $this->redirectToRoute('votant_vote',[], 301);
+        // }
         //unset($votes['votant']);
         //unset($cand['candidat']);
-        /*$cotes=[
+        $cotes=[
             10=>'10', 
             15=>'12' ,
             20=>'15',
@@ -53,8 +53,9 @@ class VotantController extends AbstractController
         ];
         return $this->render('votant/vote.html.twig', [
             'cotes' =>$cotes,
+            'candidat'=>$candidat
         ]);
-        */
+        
     }
     /**
     *@Route("/connexion/{id}",name="votant_login")
