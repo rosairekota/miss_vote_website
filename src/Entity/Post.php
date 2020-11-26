@@ -7,9 +7,14 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\File as ConstraintsFile;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @Vich\Uploadable
  */
 class Post
 {
@@ -29,7 +34,12 @@ class Post
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageName;
-
+    
+    /**
+     * @var File
+     * @Vich\UploadableField(mapping="post_image", fileNameProperty="imageName")
+     */
+    private $imageFile;
     /**
      * @ORM\Column(type="text")
      */
@@ -53,6 +63,11 @@ class Post
      * @ORM\Column(type="string", length=255)
      */
     private $category;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
@@ -225,5 +240,55 @@ class Post
         $this->posted = $posted;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */ 
+    public function getType():?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set the value of type
+     *
+     * @return  self
+     */ 
+    public function setType(?string $type):self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imageFile
+     *
+     * @return  File
+     */ 
+    public function getImageFile():?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set the value of imageFile
+     *
+     * @param  File|\Symfony\Component\HttpFoundation\File\UploadedFile|null   $imageFile
+     *
+     * @return  self
+     */ 
+    public function setImageFile(?File $imageFile):void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+       
     }
 }

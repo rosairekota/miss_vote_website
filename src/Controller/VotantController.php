@@ -81,7 +81,7 @@ class VotantController extends AbstractController
                 $this->session->set('candidatSession',$candidatSession);
 
                 //return $this->redirectToRoute('votant_vote',['id'=>$candidat->getId()],301);
-                return $this->redirectToRoute('checkout_payment',[], 301);
+                return $this->redirectToRoute('votant_vote',['id'=>$candidat->getId()],301);
             }
             else{
                       $this->addFlash('warning', 'Oups! vous n\'etes pas trouvé dans notre système. Veuillez recommencer.');

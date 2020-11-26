@@ -1,7 +1,10 @@
 {% extends "base.html.twig" %}
 {% block body %}
-{% include "partials/_banner.html.twig" %}
-{% include "candidat/_listTopMiss.html.twig" %}
+{% if candidats|length >1 %}
+    {% include "partials/_banner.html.twig" %}
+    {% include "candidat/_listTopMiss.html.twig" %}
+{% endif %}
+
 {% include "candidat/_list.html.twig" %}
       
 {% endblock body %}

@@ -9,7 +9,10 @@
 						</a>
 					</div>
 					<div class="col-xl-6 col-lg-5">
-                         
+						{% if formCandidat is defined %}
+							{% include "candidat/_formSearch.html.twig" %}
+						{% endif %}
+                        
 					</div>
 					<div class="col-xl-4 col-lg-5">
 						<div class="user-panel">
@@ -36,7 +39,7 @@
 					<li><a href="{{path('candidat_index')}}">Candidates Miss</a></li>
 					<li><a href="#">Top Miss</a></li>
 					<li><a href="#">Challenge Miss</a></li>
-					<li><a href="#">Actualites Miss
+					<li><a href="{{path('candidat_post')}}">Actualites Miss
 						<span class="new">New </span>
 					</a></li>
 					<li><a href="#">Prime Miss</a>
@@ -48,7 +51,7 @@
 							<li><a href="#">Flip Flops</a></li>
 						</ul>
 					</li>
-					<li><a href="#">Blog Miss </a>
+					<!-- <li><a href="#">Blog Miss </a>
 						<ul class="sub-menu">
 							<li><a href="./product.html">Product Page</a></li>
 							<li><a href="./category.html">Category Page</a></li>
@@ -56,8 +59,8 @@
 							<li><a href="./checkout.html">Checkout Page</a></li>
 							<li><a href="./contact.html">Contact Page</a></li>
 						</ul>
-					</li>
-					<li><a href="#">Contact Miss</a></li>
+					</li> -->
+					<li><a href="#">Contact</a></li>
 				</ul>
 			</div>
 		</nav>

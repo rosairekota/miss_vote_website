@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,12 +17,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
     /**
-     * @Route("/", name="post_index", methods={"GET"})
+     * @Route("/", name="candidat_post", methods={"GET"})
      */
-    public function index(PostRepository $postRepository): Response
-    {
-        return $this->render('post/index.html.twig', [
-            'posts' => $postRepository->findAll(),
+    public function index(PostRepository $postRepository,Request $request): Response
+    {   $data=[
+        'page'=>$request->query->get('page',1),
+        'number'=>12
+             ];
+        $posts=$postRepository->searchPost($data);
+        return $this->render('post/home.html.twig', [
+            'posts' => $posts,
         ]);
     }
 

@@ -93,3 +93,61 @@
     margin-bottom: -15%;
     color: #495057;
 }
+
+.text_alert{
+
+    animation:1s blinker linear infinite;
+    -webkit-animation:1s blinker linear infinite;
+    -moz-animation:1s blinker linear infinite;
+
+     
+     text-shadow: 4px 8px 10px #f1f1f1;
+     font-size: 20px;
+     
+     
+    }
+
+    @-moz-keyframes blinker {  
+     0% { opacity: 1.0; color: black; }
+     50% { opacity: 0.0; color: black;}
+     100% { opacity: 1.0; color: black;}
+     }
+
+    @-webkit-keyframes blinker {  
+     0% { opacity: 1.0; color: black;}
+     50% { opacity: 0.0; color: black;}
+     100% { opacity: 1.0; color: black;}
+     }
+
+    @keyframes blinker {  
+     0% { opacity: 1.0; color: black;}
+     50% { opacity: 0.0; color: black;}
+     100% { opacity: 1.0; color: black;}
+     }
+ /* blick banner or image  */
+     .blink_pub:hover{
+
+    animation:1s blinker linear infinite;
+    -webkit-animation:5s blinker linear infinite;
+    -moz-animation:5s blinker linear infinite;
+
+     color: #0A0A2A;
+    }
+
+    @-moz-keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.2; }
+     100% { opacity: 1.0; }
+     }
+
+    @-webkit-keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.2; }
+     100% { opacity: 1.0; }
+     }
+
+    @keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.2; }
+     100% { opacity: 1.0; }
+   }

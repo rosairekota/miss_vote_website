@@ -22,7 +22,7 @@ class CoteController extends AbstractController
     }
 
      /**
-     *@Route("/coter", name="cotes_add")
+     *@Route("/coter", name="cote_add")
      */
     public function payement(Request $request,EntityManagerInterface $em):Response
     {
@@ -76,7 +76,7 @@ class CoteController extends AbstractController
                              }
                            $coteEntity->setMontantPaye($montantAPayer);
                           
-                    
+                   
                     if ($coteEntity!=null) {
                        $em->persist($candidat);
                        $em->persist($votant);

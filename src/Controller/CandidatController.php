@@ -30,36 +30,18 @@ class CandidatController extends AbstractController
      * @Route("/", name="candidat_index", methods={"GET"})
      */
     public function index(Request $request,PaginatorInterface $pagination, CandidatRepository $candRepository): Response
-    {   //$comp=$$request->session->get('compSession',[]);
-        $candidatSearch= new Candidat();
-        $form=$this->createForm(CandidatSearchType::class,$candidatSearch);
-         $form->handleRequest($request);
-
-         $candidats=$pagination->paginate($candRepository->getPaginate(),$request->query->getInt('page',1),8);
-        //$this->cote->findByCandidate($candidatSearch);
-     
-        return $this->render('candidat/index.html.twig', [
-            'candidats' => $candidats,
-            'form'      =>$form->createView()
-        ]);
-    }
-    /**
-     *@Route("/candidat/recherche", name="candidat_search")
-     */
-    public function searchByTheme(Request $request,PaginatorInterface $pagination, CandidatRepository $candRepository){
-        
-        $candidatSearch= new Candidat();
+    {   $candidatSearch= new Candidat();
         $form=$this->createForm(CandidatSearchType::class,$candidatSearch);
          $form->handleRequest($request);
          $candidat=$candRepository->searchcandidateFromTheme($candidatSearch);
          $candidats=$pagination->paginate($candidat,$request->query->getInt('page',1),8);
-
      
         return $this->render('candidat/index.html.twig', [
             'candidats' => $candidats,
-            'form'      =>$form->createView()
+            'formCandidat'      =>$form->createView()
         ]);
     }
+
 
     /**
      * @Route("/candidat/{id}", name="candidat_show", methods={"GET"})

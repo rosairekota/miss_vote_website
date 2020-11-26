@@ -1,0 +1,27 @@
+
+                		<div class="product-item">
+						<div class="pi-pic">
+							{% if post.imageName %}
+								<img src="{{ vich_uploader_asset(post,'imageFile')}}" 
+									style="width: 100%; height: auto;" class="blink_pub">
+								{% else %}
+
+								<img src="{{ asset('img/candidats/default.jpg')}}" alt="pas d'image" 
+									style="width: 100%; height: auto;" class="blink_pub">
+								{% endif %}
+							<div class="pi-links">
+								
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a> <br>
+                                <a class="btn btn-sm btn-outline-secondary mr-2" href="#">Suivre</a>
+                                 <a class="btn btn-sm btn-outline-secondary" href="#">Voter</a>
+                     
+                            </div>
+						</div>
+						<div class="pi-text">
+                            <p>{{post.title}}</p>
+							<h6>{{post.candidat.origine }}</h6>
+							<p>{{post.candidat.nom}} </p>
+						</div>
+					</div>
+         
+

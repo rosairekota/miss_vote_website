@@ -23,6 +23,8 @@ class CandidatRepository extends ServiceEntityRepository
      public function getPaginate()
     {
         $query=$this->getQueryBuiler();
+                $query->select('ct','c')
+                      ->join('c.cotes','ct');
 
         return $query->getQuery();
            
@@ -30,6 +32,9 @@ class CandidatRepository extends ServiceEntityRepository
      public function searchcandidateFromTheme(Candidat $candidat)
     {
         $query=$this->getQueryBuiler();
+        $query->select('ct','c')
+              ->join('c.cotes','ct');
+
          if ($candidat->getNom()) {
             $query=$query->andWhere('c.nom=:val')
                          ->setParameter('val',$candidat->getNom());
