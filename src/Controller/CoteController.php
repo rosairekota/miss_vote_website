@@ -77,13 +77,23 @@ class CoteController extends AbstractController
                            $coteEntity->setMontantPaye($montantAPayer);
                           
                    
-                    if ($coteEntity!=null) {
+                    if ($coteEntity!=null) 
+
                        $em->persist($candidat);
                        $em->persist($votant);
                        $em->persist($coteEntity);
                        $em->flush();
                       dd($coteEntity);
                     }
+                    
+                    // TEST1 SQL
+                    $con=$em->getConnection();
+                        $sql="INSERT INTO cote SET cote=?";
+                    $con->prepare($sql);
+                    $con->executeQuery($sql,$datas);
+
+
+                   // TEST2 DQL
                  dd('c\'est null ');
                    
             return $this->render('cote/vote.html.twig',['cote'=>$coteEntity]);
