@@ -4,66 +4,68 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="container my-5">
     <div class="row">     
     <div class="col-md-8">
-      <h2 class="lead text-center">Mes News</h2> 
-     <div class="row img-thumbnail bg-dark">
-        
-         {% for  post in  candidat.posts %}
-           
-         <div class="col-md-4">
-
-              <div class="card mb-6 shadow-sm">
-                <img class="card-img-top" src="{{ asset('images/static/team-2.jpg')}}" alt="Card image cap">
-               <h2 class="card-title lead">{{post.title}}</h2>
-                   <small class="text-muted">{{post.id}}</small> 
-                <div class="card-body">
-                  {# <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> #}
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a class="btn btn-sm btn-outline-secondary">Detail</a>
-                    </div>
-                
-                </div>
-              </div>
-            </div>
-         </div>
-          {% endfor %}
+      <h2 class="lead text-center">VISUALISATION DES VOTES</h2> 
+     
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+              <th>Nom du Votant</th>
+              <th>Cote </th>
+              <th> Montant</th>
+              <th>Date Vote</th>
+            </thead>
+        <tbody>
+        {% for cote in candidat.cotes %}
           
-     </div>
+        
+            <tr>
+                
+                <td>{{ cote.votant.nom}}</td>
+                 <td>{{ cote.getcoteVotant()}}</td>
+                  <td>{{ cote.montantpaye}}</td>
+                   <td> Le {{ cote.datevote|date('d/m/Y à H:i:s')}}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+    
             </div>
             <div class="col-md-4">
             <h1 class="text-center lead">{{ candidat.nom }} {{ candidat.postnom }}-{{ candidat.prenom }}</h1>
               <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" src="{{ asset('images/static/team-1.jpg')}}" alt="Card image cap">
-               <h2 class="card-title lead">{{candidat.nom}}</h2>
-               <small class="text-muted">Sexe: {{ candidat.sexe }}</small>
-                   <small class="text-muted">Annee de Naissance: {{ candidat.dateNaissance ? candidat.dateNaissance|date('Y') : '' }}</small> 
-                   <small class="text-muted"> Ville d'origine  :{{ candidat.origine }}</small>
-                <div class="card-body">
-                  {# <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> #}
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a class="btn btn-sm btn-outline-secondary"  href={{path('votant_vote',{'id':candidat.id})}}>Voter</a>
-                    </div>
+                <div class="product-item">
+                  <div class="pi-pic">
+                    {% if candidat.photoName %}
+                      <img src="{{ vich_uploader_asset(candidat,'imageFile')}}" 
+                        style="width: 100%; height: auto;" class="blink_pub">
+                      {% else %}
+
+                      <img src="{{ asset('img/candidats/default.jpg')}}" alt="pas d'image" 
+                        style="width: 100%; height: auto;" class="blink_pub">
+                      {% endif %}
+                    <div class="pi-links">
+                      <a href="{{path('candidat_countVote',{'id':candidat.id})}}" class="add-card"><i class="flaticon-bag"></i><span>{{candidat.cotes|length}} VOTES</span></a> 
+                      <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a> <br>
+                                   
+                                      <a class="btn btn-sm btn-outline-secondary" href="{{path('votant_vote',{'id':candidat.id})}}">Voter</a>
+                          
+                                  </div>
+                  </div>
+                  <div class="pi-text">
+                    
+                    <p>{{candidat.nom}} </p>
+                  </div>
+                </div>
+              </div>
+              
                 
                 </div>
               </div>
             </div>
-              <table class="table-stripted">
-        <tbody>
-            
-            <tr>
-                <th>Adresse</th>
-                <td>{{ candidat.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ candidat.telephone }}</td>
-            </tr>
-        </tbody>
-    </table>
+        
             </div>
         </div>
     </div>

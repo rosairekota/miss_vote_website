@@ -17,8 +17,15 @@
 					<div class="col-xl-4 col-lg-5">
 						<div class="user-panel">
 							<div class="up-item">
+							 
+							   {% if  app.session.get('votantSession') is not defined %}
 								<i class="flaticon-profile"></i>
-								<a href="#">Connexion</a> Ou <a href="#">Creer un Compte</a>
+								<a href="#">Connexion</a> Ou <a href="#">Creer un Compte
+								</a>
+								{%  else  %}
+									<a href="{{path('votant_logout')}}">Deconnexion
+								</a>
+								{% endif %}
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">

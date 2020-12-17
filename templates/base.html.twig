@@ -30,7 +30,16 @@
     <body>
          
         {% include "partials/nav.html.twig" %}
-       
+
+         {% for label, messages in app.flashes(['success', 'warning','danger']) %}
+            {% for message in messages %}
+               <div class="container">
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+               </div>
+            {% endfor %}
+        {% endfor %}
         
         {% block body %}{% endblock %}
          {% include "partials/_footer.html.twig" %}

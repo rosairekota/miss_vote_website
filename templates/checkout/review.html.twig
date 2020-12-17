@@ -1,10 +1,12 @@
 {% extends "base.html.twig" %}
 {% block body %}
-    <div class="container">
-        {{form_start(form)}}
-        <div class="form-row">
-            <button type="submit" class="btn-success">Valider votre payement</button>
+    <div class="container mt-4">
+      
+        <div class="row">
+            <div class="col-md-6 offset-md-3 my-4">
+                <a type="submit" class="btn-success" href="{{path('candidat_index')}}">Aller dans page d'acceuil</a>
+            </div>
         </div>
-        {{form_end(form)}}
+       
     </div>
 {% endblock body %}

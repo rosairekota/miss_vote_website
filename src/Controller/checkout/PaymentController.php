@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PaymentController extends AbstractController{
 
@@ -74,7 +75,7 @@ private EntityManagerInterface $doctrine;
         //$payment->setNumber($checkout->getId());
         //$payment->setNumber('12345');
         $payment->setNumber(uniqid());
-        $payment->setCurrencyCode('EUR');
+        $payment->setCurrencyCode('USD');
         $payment->setTotalAmount(300);
         $payment->setDescription('A description');
         $payment->setClientId('anId');
@@ -92,63 +93,15 @@ private EntityManagerInterface $doctrine;
 
         return $view;
     }
+ 
 
-
-    /**
+   /**
      * @Route("/checkout/view", name="checkout_review")
      */
-    public function review(Request $request,SerializerInterface $serialize, EntityManagerInterface $em)
+   public function __invoke(Request $request,EntityManagerInterface $em, SessionInterface $session)
     {
-         $token = $this->payum->getHttpRequestVerifier()->verify($request);
-
-        $gateway = $this->payum->getGateway($token->getGatewayName());
-        try {
-            $gateway->execute(new Sync($token));
-        } catch (RequestNotSupportedException $e) {
-        }
-
-        $gateway->execute($status = new GetHumanStatus($token));
-
-        if (!$status->isAuthorized()) {
-            throw new \Exception(' Le Payement n\'a pas été authorisé');
-        }
-        // $checkout=new Payment();
-        // $form = $this->createForm(PaymentType::class,$checkout);
-
-        // $form->handleRequest($request);
-
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     // capture
-            $captureToken = $this->payum->getTokenFactory()->createCaptureToken(
-                $token->getGatewayName(),
-                $status->getFirstModel(),
-                'checkout_finalize' //$this->utils->generateUrl('checkout_finalize', UrlGeneratorInterface::ABSOLUTE_URL)
-            );
-
-            return $this->redirect($captureToken->getTargetUrl());
-
-           
-        
-
-        return $this->render('checkout/review.html.twig',
-            [
-                //'form' => $form,
-                'status' => $status,
-            ]
-           
-        );
-
-      
-    
-       // return new Response('review page');
-    }
-
-
-    /**
-     * @Route("/checkout/finalize", name="checkout_finalize")
-     */
-     public function finalize(Request $request)
-    {
+        $cotes=$session->get('cotesSession',[]);
+         
         $token = $this->payum->getHttpRequestVerifier()->verify($request);
 
         $gateway = $this->payum->getGateway($token->getGatewayName());
@@ -159,29 +112,49 @@ private EntityManagerInterface $doctrine;
 
         $gateway->execute($status = new GetHumanStatus($token));
 
-        if (!$status->isCaptured()) {
-            throw new \Exception('Payment n\'a pas  été capturé ');
-
-            // @todo add payment failure msg
-            //$view = View::createRouteRedirect('checkout_payment');
-
-            //return $view;
+         if (!$status->isAuthorized()) {
+            $this->addFlash('danger','Payement n\'a pas été autorisé !');
+            //throw new \Exception('Payement n\'a pas été autorisé !');
         }
-        // $cart = $this->cartManager->loadCart();
-        // $this->cartManager->resetCart($cart);
 
-        $request->getSession()->set('order_id', $status->getFirstModel()->getId());
+        // on verfifie si le payement a reussi ou autorise
+        if($status->isAuthorized() && !empty($cotes)){
 
-        
-
-        return $this->redirectToRoute('checkout_success');
+            $con=$em->getConnection();
+                     $sql="INSERT INTO cote(votant_id,candidat_id,cote_votant,montant_paye,datevote) VALUES(:votant_id, :candidat_id, :cote_votant, :montant_paye, NOW())";
+    
+                    $con->prepare($sql);
+                    $con->executeUpdate($sql,$cotes);
+           $this->addFlash('success','Payement a reussi avec succès! Votre vote est validé!');
+             
+            return $this->redirectToRoute('candidat_show',['id'=>$cotes['candidat_id']],301);
+        }
+      
+        //session_destroy();
+        return $this->render('checkout/review.html.twig',[]);
     }
+        //  $payment = $status->getFirstModel();
+        // $form = $this->createForm(PaymentType::class,$payment);
 
-    /**
-     * @Route("/checkout/success", name="checkout_success")
-     */
-    public function checkoutSuccess(){
-        $this->addFlash('success','Le payement a reussi');
-        return $this->redirectToRoute('candidat_index');
-    }
+        // $form->handleRequest($request);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     // capture
+        //     $captureToken = $this->payum->getTokenFactory()->createCaptureToken(
+        //         $token->getGatewayName(),
+        //         $status->getFirstModel(),
+        //         'checkout_finalize' //$this->utils->generateUrl('checkout_finalize', UrlGeneratorInterface::ABSOLUTE_URL)
+        //     );
+
+        //     $view = $captureToken->getTargetUrl();
+
+        //     return $view;
+        // }
+
+       
+    //     return $this->render('checkout/review.html.twig',[
+    //             'form' => $form->createView(),
+    //             'status' => $status,
+    //         ]);
+    
 }

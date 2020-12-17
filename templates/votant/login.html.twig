@@ -16,12 +16,12 @@
                   {{form_row(form.motdepass,{'attr':{'id':'inputPassword','placeholder':'Mot de pass'},'required':'false'})}}
                 <div class="checkbox mb-3">
                     <label>
-                    <input type="checkbox" value="remember-me"> <a href="{{path('votant_new')}}">Mot de passe oublié?</a>
+                    <input type="checkbox" value="remember-me"> <a href="{{path('votant_new',{id:candidat.id})}}">Mot de passe oublié?</a>
                     </label>
                 </div>
                 <button class="site-btn btn-block" type="submit">connexion</button>
                   <label>
-                    <input type="checkbox" value="remember-me"> <a href="{{path('votant_new')}}">Nouveau Compte</a>
+                    <input type="checkbox" value="remember-me"> <a href="{{path('votant_new',{id:candidat.id})}}">Nouveau Compte</a>
                     </label>
                
                 </div>

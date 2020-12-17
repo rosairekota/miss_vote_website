@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CandidatController extends AbstractController
 {
     /**
-     * @Route("/candidat", name="admin_candidat_index", methods={"GET"})
+     * @Route("/candidate", name="admin_candidat_index", methods={"GET"})
      */
     public function index(CandidatRepository $candidatRepository): Response
     {
@@ -26,7 +26,7 @@ class CandidatController extends AbstractController
     }
 
     /**
-     * @Route("/new/candidat", name="admin_candidat_new", methods={"GET","POST"})
+     * @Route("/new/candidate", name="admin_candidat_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,7 +49,7 @@ class CandidatController extends AbstractController
     }
 
     /**
-     * @Route("/candidat/{id}", name="admin_candidat_edit", methods={"GET"})
+     * @Route("/candidate/{id}", name="admin_candidat_edit", methods={"GET"})
      */
     public function show(Candidat $candidat): Response
     {
@@ -59,7 +59,7 @@ class CandidatController extends AbstractController
     }
 
     /**
-     * @Route("/candidat/{id}/edit", name="admin_candidat_edit", methods={"GET","POST"})
+     * @Route("/candidate/{id}/edit", name="admin_candidat_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Candidat $candidat): Response
     {
@@ -79,7 +79,7 @@ class CandidatController extends AbstractController
     }
 
     /**
-     * @Route("/candidat/{id}", name="candidat_delete", methods={"DELETE"})
+     * @Route("/candidate/{id}", name="candidat_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Candidat $candidat): Response
     {

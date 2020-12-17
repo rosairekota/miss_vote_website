@@ -42,6 +42,11 @@ class Cote
      */
     private $montantPaye;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $datevote;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Cote
     public function setMontantPaye(?string $montantPaye): self
     {
         $this->montantPaye = $montantPaye;
+
+        return $this;
+    }
+
+    public function getDatevote(): ?\DateTimeInterface
+    {
+        return $this->datevote;
+    }
+
+    public function setDatevote(?\DateTimeInterface $datevote): self
+    {
+        $this->datevote = $datevote;
 
         return $this;
     }

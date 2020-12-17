@@ -18,7 +18,7 @@
                                 <h3 style="margin-left:1%;" class="register-heading">Votez pour le n°{{candidat.id}} : <span class="text-primary lead"> {{candidat.nom}}-{{candidat.prenom}}</span></h3>
                                 <div class="row register-form">
                                     <div class="col-md-6">
-                                       <form action="{{ path('cote_add')}}" method="post">
+                                       <form action="{{ path('cote_add',{'id':candidat.id})}}" method="post">
                                             <div class="form-group">
                                             <select class="form-control">
                                                 <option class="hidden" >selectionner la voix ou cote selon vos moyens</option>

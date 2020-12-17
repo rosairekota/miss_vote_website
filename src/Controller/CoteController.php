@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Competition;
 use App\Entity\Cote;
+use App\Entity\Candidat;
 use App\Service\CoteService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,50 +23,57 @@ class CoteController extends AbstractController
     }
 
      /**
-     *@Route("/coter", name="cote_add")
+     *@Route("/coter/{id}", name="cote_add")
      */
-    public function payement(Request $request,EntityManagerInterface $em):Response
+    public function cote(Candidat $candidat,Request $request,EntityManagerInterface $em):Response
     {
     //Etape 1: On initialise la session
 
         $session=$request->getSession();
         $votant=$session->get('votantSession',[]);
-        $candidat=$session->get('candidatSession',[]);
-        $comp=$session->get('compSession',[]);
+        
+        $cotes=$session->get('cotesSession',[]);
         
 
-       //Etape 2:  on verifie si le votant et le candidat sont dans la session
+       //Etape 2:  on verifie si le votant est dans la session
 
-        if (!empty($votant)&&!empty($candidat)) {
-            extract($candidat);
+        if (!empty($votant)) {
+           
             extract($votant);
                 $coteObtenu=0;
                 $montantAPayer=1;
-
+                $datas=[];
          // Etape 3: on parcours les montants a payer pour obtenir les cotes corresponadants
 
-            $cotes= [
-                10=>'10', 
-                15=>'12' ,
-                20=>'15',
-                25=>'16',
-                30=>'17',
-                35=>'18'
-             ];
-            foreach ($cotes as $cote => $point) {
-            if ($request->request->getInt('cote')==$cote) {
-                $coteObtenu=$point;
-                $montantAPayer=$cote*($request->request->getInt('numberCotes')==0?'1':$request->request->getInt('numberCotes'));
+            
+            foreach ($this->coteService->findCotes() as $cote => $point) {
+                if ($cote==$request->request->get('cote')) {
+                    $coteObtenu=$point;
                     
-            }
-        }
+                    $montantAPayer=$cote*($request->request->getInt('numberCotes')==0?'1':$request->request->getInt('numberCotes'));
 
-        // Etape 4: on initialise les cotes
+                  
+                }
+        }
+         $datas=[
+                        'votant_id'     =>$votant->getId(),
+                        'candidat_id'   =>$candidat->getId(),
+                        'cote_votant'   =>$coteObtenu,
+                        'montant_paye'  =>$montantAPayer
+                    ] ;  
+
+                    
+             $session->set('cotesSession',$datas);       
+            return $this->redirectToRoute('checkout_payment');
+                //     // TEST1 SQL
+                   
+
+    /*    // Etape 4: on initialise les cotes
       
          $coteEntity =new Cote();
        
       
-
+            dd($votant->getNom());
          $coteEntity->setCandidat($candidat)
                           ->setVotant($votant)
                           ;  if ($coteEntity->getVotant()->getCategory()=='votant') {
@@ -77,29 +85,24 @@ class CoteController extends AbstractController
                            $coteEntity->setMontantPaye($montantAPayer);
                           
                    
-                    if ($coteEntity!=null) 
+                    if ($coteEntity!=null) {
 
-                       $em->persist($candidat);
-                       $em->persist($votant);
+                    //    $em->persist($candidat);
+                    //    $em->persist($votant);
                        $em->persist($coteEntity);
                        $em->flush();
                       dd($coteEntity);
                     }
-                    
-                    // TEST1 SQL
-                    $con=$em->getConnection();
-                        $sql="INSERT INTO cote SET cote=?";
-                    $con->prepare($sql);
-                    $con->executeQuery($sql,$datas);
+            */
+                  
 
 
-                   // TEST2 DQL
-                 dd('c\'est null ');
+                //    // TEST2 DQL
+                //  dd('c\'est null ');
                    
-            return $this->render('cote/vote.html.twig',['cote'=>$coteEntity]);
+           // return $this->render('cote/vote.html.twig',[]);
         }
        
       
-        return null;
-    }
+    }   
 }

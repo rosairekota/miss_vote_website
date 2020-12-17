@@ -43,12 +43,12 @@ class CandidatRepository extends ServiceEntityRepository
         
        // $id=settype($candidat->getId(),'integer');
 
-         if ($candidat->getId()) {
+         if ((int)$candidat->getId()) {
             $query=$query->andWhere('c.id=:val')
                          ->setParameter('val',$candidat->getId());
                          
          }
-        return $query->orderBy('c.id','DESC')
+        return $query->orderBy('c.id','ASC')
                     ->getQuery();
         ;
     }
