@@ -15,7 +15,7 @@
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
-                <th>Postnom</th>
+                <th>Prenom</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -24,7 +24,7 @@
             <tr>
                  <td>{{candidat.id }}</td>
                 <td>{{ candidat.nom }}</td>
-                <td>{{ candidat.postnom }}</td>
+                <td>{{ candidat.prenom }}</td>
                 <td class="admin-action"><a href="{{ path('admin_candidat_edit',{'id': candidat.id}) }}"
                         class="btn btn-secondary">Editer</a>
                     <form method="post" action="{{ path('candidat_delete', {'id': candidat.id}) }}" onsubmit="return confirm('Est-vous sur de supprimer?');">

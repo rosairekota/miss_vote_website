@@ -17,23 +17,24 @@
 					<div class="col-xl-4 col-lg-5">
 						<div class="user-panel">
 							<div class="up-item">
-							 
-							   {% if  app.session.get('votantSession') is not defined %}
+								{% if app.session.get('votantSession') is empty %}
 								<i class="flaticon-profile"></i>
 								<a href="#">Connexion</a> Ou <a href="#">Creer un Compte
 								</a>
 								{%  else  %}
 									<a href="{{path('votant_logout')}}">Deconnexion
 								</a>
-								{% endif %}
+							
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
-									<span>0</span>
+									<span>Salut</span>
 								</div>
-								<a href="#">Pub</a>
+								{% set nom= app.session.get('votantSession')['votant'].nom %}
+								<a href="#">{{ app.session.get('votantSession')['votant'].prenom }} {{nom}}</a>
 							</div>
+								{% endif %}
 						</div>
 					</div>
 				</div>

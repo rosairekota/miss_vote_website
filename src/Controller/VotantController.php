@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Votant;
 use App\Entity\Candidat;
+use App\Entity\Search\CoteSearch;
+use App\Form\CoteSearchType;
 use App\Form\VotantType;
 use App\Service\CoteService;
 use App\Form\LoginVotantType;
@@ -37,13 +39,14 @@ class VotantController extends AbstractController
     { 
         $votes=$this->session->get('votantSession',[]);
        
-
+         $coteSearch=new CoteSearch();
+        $formCote=$this->createForm(CoteSearchType::class,$coteSearch);
         if (empty($votes['votant'])) {
             return $this->redirectToRoute('votant_login',['id'=>$candidat->getId()],301);
         }
          
         return $this->render('votant/vote.html.twig', [
-            'cotes' =>$this->coteservice->findCotes(),
+            'coteform' =>$formCote->createView(),
             'candidat'=>$candidat
         ]);
         

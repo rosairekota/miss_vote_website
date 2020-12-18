@@ -6,7 +6,7 @@ use App\Entity\Candidat;
 use App\Entity\Cote;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\EntityManagerInterface;
 /**
  * @method Cote|null find($id, $lockMode = null, $lockVersion = null)
  * @method Cote|null findOneBy(array $criteria, array $orderBy = null)
@@ -15,9 +15,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CoteRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private EntityManagerInterface $em;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
     {
         parent::__construct($registry, Cote::class);
+        $this->em=$em;
     }
      public function findByCandidate(Candidat $candidat)
     {
@@ -28,6 +31,22 @@ class CoteRepository extends ServiceEntityRepository
                         ->getQuery()
                         ->getResult()
         ;
+    }
+
+     /**
+     * Cette fonction retourne un entier si l'insertion a bien reussi|null
+     * @return int|null
+     *
+     */
+     public function insertBySql(array $data=[]): ?int
+    {
+        $con=$this->em->getConnection();
+             $sql="INSERT INTO cote(votant_id,candidat_id,cote_votant,montant_paye,datevote) VALUES(:votant_id, :candidat_id, :cote_votant, :montant_paye, NOW())";
+        
+            $con->prepare($sql);
+           $result= $con->executeUpdate($sql,$data);
+           return $result;
+        
     }
 
     // /**

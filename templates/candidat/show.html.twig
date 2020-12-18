@@ -7,10 +7,10 @@
     <div class="container my-5">
     <div class="row">     
     <div class="col-md-8">
-      <h2 class="lead text-center">VISUALISATION DES VOTES</h2> 
+      <h2 class="text-center my-2">VISUALISATION DES VOTES</h2> 
      
-        <table class="table table-bordered">
-          <thead class="thead-dark">
+        <table class="table table-responsive-md table-bordered">
+          <thead class="table-dark">
               <th>Nom du Votant</th>
               <th>Cote </th>
               <th> Montant</th>
@@ -22,7 +22,7 @@
         
             <tr>
                 
-                <td>{{ cote.votant.nom}}</td>
+                <td>{{ cote.votant.prenom}} {{ cote.votant.nom}}</td>
                  <td>{{ cote.getcoteVotant()}}</td>
                   <td>{{ cote.montantpaye}}</td>
                    <td> Le {{ cote.datevote|date('d/m/Y à H:i:s')}}</td>

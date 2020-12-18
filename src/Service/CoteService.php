@@ -25,38 +25,42 @@ class CoteService
      *
      * @return array|null
      */
-    public function add($coteObtenu,$numberCotes):?array{
-
-        
-        foreach ($this->findCotes() as $cote => $point) {
-           if ($coteObtenu==$cote) {
-               $coteObtenuV=$point;
-               $montantAPayer=$cote*$numberCotes==0?'1':$numberCotes;
-               
-            return [
-                'montantUnitaire '=>$cote,
-                'cote'            =>$coteObtenuV,
-                'montantTotApayer' =>$montantAPayer
-            ];
-           }
-
-    return [
-                'montantUnitaire '=>$cote,
-                'cote'            =>$coteObtenu,
-               
-            ];;
-    }
-    }
-
+     /**
+     * Cette fonction retourne un tableau[cote]
+     *
+     * @return array|null
+     */
     public function findCotes():array{
         return [
-            10=>'10', 
-            15=>'12' ,
-            20=>'15',
-            25=>'16',
-            30=>'17',
-            35=>'18'
-        ];
+            '10 points' => ['10$' => 10],
+            '12 points' => ['15$' => 12],
+            '15 points' => ['20$' => 15],
+            '16 points' => ['25$' => 16],
+            '17 points' => ['30$' => 17],
+            '18 points' => ['35$' => 18]
+                    ]
+       ;
+    }
+
+   /**
+     * Cette fonction retourne un montant
+     * @return int|null
+     *
+     */
+    public function findMount($coteSearch){
+         $cotes=[
+            '10' => 10,
+            '15' => 12,
+            '20' => 15,
+            '25' => 16,
+            '30' => 17,
+            '35' => 18
+         ];
+            foreach ($cotes as $key => $value) {
+               if ($coteSearch==$value) {
+                  return $key;
+               }
+            }        
     }
    
 }

@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Repository\CoteRepository;
 
 class PaymentController extends AbstractController{
 
@@ -89,16 +90,16 @@ private EntityManagerInterface $doctrine;
             'checkout_review' //$this->utils->generateUrl('checkout_payment_paypal', ['return' => 1], UrlGeneratorInterface::ABSOLUTE_URL)
         );
 
-        $view = $this->redirect($authorizeToken->getTargetUrl());
+     
 
-        return $view;
+        return  $this->redirect($authorizeToken->getTargetUrl());
     }
  
 
    /**
      * @Route("/checkout/view", name="checkout_review")
      */
-   public function __invoke(Request $request,EntityManagerInterface $em, SessionInterface $session)
+   public function __invoke(Request $request,CoteRepository $repo, SessionInterface $session)
     {
         $cotes=$session->get('cotesSession',[]);
          
@@ -120,14 +121,19 @@ private EntityManagerInterface $doctrine;
         // on verfifie si le payement a reussi ou autorise
         if($status->isAuthorized() && !empty($cotes)){
 
-            $con=$em->getConnection();
-                     $sql="INSERT INTO cote(votant_id,candidat_id,cote_votant,montant_paye,datevote) VALUES(:votant_id, :candidat_id, :cote_votant, :montant_paye, NOW())";
-    
-                    $con->prepare($sql);
-                    $con->executeUpdate($sql,$cotes);
-           $this->addFlash('success','Payement a reussi avec succès! Votre vote est validé!');
-             
-            return $this->redirectToRoute('candidat_show',['id'=>$cotes['candidat_id']],301);
+            // on enregistre les cotes en fonction nombre de fois que le votant a choisi
+
+            for ($i=1; $i <$cotes['nombrefoisvote']+1; $i++) { 
+               $result=$repo->insertBySql($cotes);
+               if ($result>0) {
+
+                    $this->addFlash('success','Payement a reussi avec succès! Votre vote est validé!');
+                      
+                     return $this->redirectToRoute('candidat_show',['id'=>$cotes['candidat_id']],301);
+               }
+            }
+            
+           
         }
       
         //session_destroy();
