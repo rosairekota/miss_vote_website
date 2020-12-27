@@ -63,21 +63,21 @@ class CoteController extends AbstractController
             
             
 
-               for ($i=0; $i <$datas['nombrefoisvote']; $i++) { 
+            //    for ($i=0; $i <$datas['nombrefoisvote']; $i++) { 
 
-                $result=$repo->insertBySql($datas);
-                  if ($result>0) {
+            //     $result=$repo->insertBySql($datas);
+            //       if ($result>0) {
 
-                      $this->addFlash('success','L\'insertion reussi avec succès! Votre vote est validé!');
+            //           $this->addFlash('success','L\'insertion reussi avec succès! Votre vote est validé!');
                         
-                       return $this->redirectToRoute('candidat_show',['id'=>$datas['candidat_id']],301);
-                    }
-               }
+            //            return $this->redirectToRoute('candidat_show',['id'=>$datas['candidat_id']],301);
+            //         }
+            //    }
                
              
             
-           // $session->set('cotesSession',$datas);       
-           // return $this->redirectToRoute('checkout_payment');
+           $session->set('cotesSession',$datas);       
+            return $this->redirectToRoute('checkout_payment');
               
           }
         
